@@ -1,38 +1,48 @@
-//event listener for the click of the add button
+//event listener for the Add Button
 document.getElementById('addButton').addEventListener('click', emptyValue);
+//event lisetner for the enter keydown
+document.addEventListener('keydown', todoEnterKey);
+//event listener for clicking on to the page, to focus on the input
+document.addEventListener('click', inputFocus);
 
+//function to focus on the input when clicking into the page
+function inputFocus() {
+    document.getElementById('todoItem').focus();
+}
 
+//this function checks for the enter key and adds the todo item
+function todoEnterKey(e) {
+    if (e.key === 'Enter')
+        emptyValue();
+}
+
+//function deletes a todo item
 function deleteComplete(e) {
     var todoList = document.getElementById(e.target.id).parentElement.parentElement;
     todoList.removeChild(document.getElementById(e.target.id).parentElement);
-    console.log(todoList);
+    document.getElementById('todoItem').focus();
 }
-
 
 //this function sets the class name, which will allow css to give us the strike through look or not
 function todoComplete(e) {
-    if (e.target.checked) {
+    if (e.target.checked)
         document.getElementById(e.target.id).parentNode.className = 'todoStrike';
-    }
-    else {
+    else
         document.getElementById(e.target.id).parentNode.className = 'todo';
-    }
 }
 
+//this function is more of check to keep a user from submitting an empty string
 function emptyValue() {
     if (document.getElementById('todoItem').value)
         addToDo();
-    else
-        console.log('empty');
 }
 
 function addToDo() {
-
     //generating a todoID to locate which checkbox or delete button was clicked
     // this will return a random integer from 1 to 100;
     var todoID = parseInt((Math.random() * 100) + 1);
-    var checkBoxID = parseInt((Math.random() * 100) + 1);
-    var buttonID = parseInt((Math.random() * 100) + 1);
+    var todoCheckboxID = parseInt((Math.random() * 100) + 1);
+    var todoDeleteID = parseInt((Math.random() * 100) + 1);
 
     //takes the input value from the html input
     var inputTodoValue = document.getElementById('todoItem').value;
@@ -49,22 +59,18 @@ function addToDo() {
     var newTodoCheckbox = document.createElement('input');
     newTodoCheckbox.type = 'checkbox';
     newTodoCheckbox.className = 'checkBox';
-    newTodoCheckbox.id = checkBoxID;
+    newTodoCheckbox.id = todoCheckboxID;
 
     //creates an input with the type button and a random ID for look up  , and value of 'x'
     var newTodoDelete = document.createElement('input');
     newTodoDelete.type = 'Button';
     newTodoDelete.className = 'deleteButton';
     newTodoDelete.value = 'X'
-    newTodoDelete.id = buttonID;
+    newTodoDelete.id = todoDeleteID;
 
-    //appends a child to the new checkbox with id,  essentially add the checkbox within the <div></div>
+    //appends a checkbox child, textNode, and Delete Button within the <div></div>
     newTodoItem.appendChild(newTodoCheckbox);
-
-    //appends a child to the new todoListItem, essentially add the text within the <div></div> after the checkbox
     newTodoItem.appendChild(todoTextNode);
-
-    //appends a child to the new todoListItem, essentially add the Delete Button within the <div></div> after the text
     newTodoItem.appendChild(newTodoDelete);
 
     //this variable contains the list of Todos
@@ -75,14 +81,12 @@ function addToDo() {
 
     //Insert the new TodoListItem to the 'end' of the list of Todos
     todoItemList.insertBefore(newTodoItem, lastTodoItem);
-    //todoItemList.replaceChild(newTodoItem, lastTodoItem);
 
     //set the input box to a blank
     document.getElementById('todoItem').value = '';
 
     //focus back on the input box
     document.getElementById('todoItem').focus();
-
 
     //Add an event listener for the checkbox
     document.getElementById(newTodoCheckbox.id).addEventListener('change', todoComplete);
