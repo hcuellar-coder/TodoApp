@@ -1,0 +1,65 @@
+#addButton{
+    background-color: white;
+    border: 0;
+    font-size: 24px;
+    font-family: fantasy;
+    vertical-align: middle;
+}
+
+#todoItem{
+    font-family: fantasy;
+    font-size: 24px;
+    vertical-align: middle;
+}
+
+#inputTodo{
+    display: flex;
+    justify-content: center;
+}
+
+#todoList{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.todo{
+    font-family: fantasy;
+    font-size: 24px;
+}
+
+.todoStrike{
+    text-decoration: line-through;
+    font-family: fantasy;
+    font-size: 24px;
+}
+
+.deleteButton{
+    margin-left: 10px;
+    background-color: white;
+    border: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.checkBox{
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+
+
+h1{
+    font-size:48px;
+    font-family: fantasy;
+    text-align: center;
+} 
+
+/* body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; 
+} */
