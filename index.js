@@ -1,96 +1,102 @@
-//event listener for the Add Button
-document.getElementById('addButton').addEventListener('click', emptyValue);
-//event lisetner for the enter keydown
-document.addEventListener('keydown', todoEnterKey);
-//event listener for clicking on to the page, to focus on the input
-document.addEventListener('click', inputFocus);
+document.addEventListener('click', function () {
+    document.getElementById('todoInput').focus();
+});
 
-//function to focus on the input when clicking into the page
-function inputFocus() {
-    document.getElementById('todoItem').focus();
+document.getElementById('addButton').addEventListener('click', function () {
+    if (document.getElementById('todoInput').value)
+        addTodoProcess();
+});
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && document.getElementById('todoInput').value)
+        addTodoProcess();
+});
+
+function addTodoProcess() {
+    let todoID = parseInt((Math.random() * 1000) + 1);
+    let checkboxID = parseInt((Math.random() * 1000) + 1);
+    let deleteID = parseInt((Math.random() * 1000) + 1);
+
+    let inputTodoValue = document.getElementById('todoInput').value;
+    addTodo(false, inputTodoValue, todoID, checkboxID, deleteID);
+
+    todoListStorage.push({ checked: false, todo: inputTodoValue, todoID: todoID, checkboxID: checkboxID, deleteID: deleteID });
+    window.localStorage.setItem("todoList", JSON.stringify(todoListStorage));
+
+    document.getElementById('todoInput').value = '';
+    document.getElementById('todoInput').focus();
 }
 
-//this function checks for the enter key and adds the todo item
-function todoEnterKey(e) {
-    if (e.key === 'Enter')
-        emptyValue();
-}
+function addTodo(checked, inputTodoValue, todoID, checkboxID, deleteID) {
 
-//function deletes a todo item
-function deleteComplete(e) {
-    var todoList = document.getElementById(e.target.id).parentElement.parentElement;
-    todoList.removeChild(document.getElementById(e.target.id).parentElement);
-    document.getElementById('todoItem').focus();
-}
-
-//this function sets the class name, which will allow css to give us the strike through look or not
-function todoComplete(e) {
-    if (e.target.checked)
-        document.getElementById(e.target.id).parentNode.className = 'todoStrike';
-    else
-        document.getElementById(e.target.id).parentNode.className = 'todo';
-}
-
-//this function is more of check to keep a user from submitting an empty string
-function emptyValue() {
-    if (document.getElementById('todoItem').value)
-        addToDo();
-}
-
-function addToDo() {
-    //generating a todoID to locate which checkbox or delete button was clicked
-    // this will return a random integer from 1 to 100;
-    var todoID = parseInt((Math.random() * 100) + 1);
-    var todoCheckboxID = parseInt((Math.random() * 100) + 1);
-    var todoDeleteID = parseInt((Math.random() * 100) + 1);
-
-    //takes the input value from the html input
-    var inputTodoValue = document.getElementById('todoItem').value;
-
-    //takes the input value and creates a textNode to append into the <div></div>
-    var todoTextNode = document.createTextNode(inputTodoValue);
-
-    //creates a new div item <div></div>
-    var newTodoItem = document.createElement('div');
+    let newTodoItem = document.createElement('div');
+    let todoTextNode = document.createTextNode(inputTodoValue);
     newTodoItem.id = todoID;
-    newTodoItem.className = 'todo';
+    if (!checked)
+        newTodoItem.className = 'todo';
+    else
+        newTodoItem.className = 'todoStrike';
 
-    //creates an input with the type checkbox and a random ID to look up 
-    var newTodoCheckbox = document.createElement('input');
+    let newTodoCheckbox = document.createElement('input');
     newTodoCheckbox.type = 'checkbox';
     newTodoCheckbox.className = 'checkBox';
-    newTodoCheckbox.id = todoCheckboxID;
+    newTodoCheckbox.id = checkboxID;
+    newTodoCheckbox.checked = checked;
 
-    //creates an input with the type button and a random ID for look up  , and value of 'x'
-    var newTodoDelete = document.createElement('input');
+    let newTodoDelete = document.createElement('input');
     newTodoDelete.type = 'Button';
     newTodoDelete.className = 'deleteButton';
     newTodoDelete.value = 'X'
-    newTodoDelete.id = todoDeleteID;
+    newTodoDelete.id = deleteID;
 
-    //appends a checkbox child, textNode, and Delete Button within the <div></div>
     newTodoItem.appendChild(newTodoCheckbox);
     newTodoItem.appendChild(todoTextNode);
     newTodoItem.appendChild(newTodoDelete);
 
-    //this variable contains the list of Todos
-    var todoItemList = document.getElementById('todoList');
-
-    //this var is the last child of the list, which is actually a line break or space.
-    var lastTodoItem = todoItemList.lastChild;
-
-    //Insert the new TodoListItem to the 'end' of the list of Todos
+    let todoItemList = document.getElementById('todoList');
+    let lastTodoItem = todoItemList.lastChild;
     todoItemList.insertBefore(newTodoItem, lastTodoItem);
 
-    //set the input box to a blank
-    document.getElementById('todoItem').value = '';
+    document.getElementById(newTodoCheckbox.id).addEventListener('change', completeTodo);
+    document.getElementById(newTodoDelete.id).addEventListener('click', deleteTodo);
+}
 
-    //focus back on the input box
-    document.getElementById('todoItem').focus();
+let todoListStorage = [];
 
-    //Add an event listener for the checkbox
-    document.getElementById(newTodoCheckbox.id).addEventListener('change', todoComplete);
+if (window.localStorage.length !== 0) {
+    repopulateTodoList();
+}
 
-    //Add an event listener for the click of the delete button
-    document.getElementById(newTodoDelete.id).addEventListener('click', deleteComplete);
+function repopulateTodoList() {
+    todoListStorage = (JSON.parse(window.localStorage.getItem("todoList")));
+    for (let i = 0; i < todoListStorage.length; i++) {
+        addTodo(todoListStorage[i].checked, todoListStorage[i].todo, todoListStorage[i].todoID, todoListStorage[i].checkboxID, todoListStorage[i].deleteID);
+    }
+}
+
+function deleteTodo(e) {
+    let todoList = document.getElementById(e.target.id).parentElement.parentElement;
+    todoList.removeChild(document.getElementById(e.target.id).parentElement);
+
+    let deleteIndex = todoListStorage.indexOf(todoListStorage.find(({ deleteID }) => deleteID == e.target.id));
+    todoListStorage.splice(deleteIndex, 1);
+
+    window.localStorage.clear();
+    window.localStorage.setItem("todoList", JSON.stringify(todoListStorage));
+
+    document.getElementById('todoInput').focus();
+}
+
+function completeTodo(e) {
+    let checkboxIndex = todoListStorage.indexOf(todoListStorage.find(({ checkboxID }) => checkboxID == e.target.id));
+    if (e.target.checked) {
+        document.getElementById(e.target.id).parentNode.className = 'todoStrike';
+        todoListStorage[checkboxIndex].checked = true;
+
+    } else {
+        document.getElementById(e.target.id).parentNode.className = 'todo';
+        todoListStorage[checkboxIndex].checked = false;
+    }
+    window.localStorage.clear();
+    window.localStorage.setItem("todoList", JSON.stringify(todoListStorage));
 }

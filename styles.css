@@ -1,3 +1,9 @@
+h1{
+    font-size:48px;
+    font-family: fantasy;
+    text-align: center;
+} 
+
 #addButton{
     background-color: white;
     border: 0;
@@ -6,7 +12,7 @@
     vertical-align: middle;
 }
 
-#todoItem{
+#todoInput{
     font-family: fantasy;
     font-size: 24px;
     vertical-align: middle;
@@ -31,6 +37,7 @@
 
 .todoStrike{
     text-decoration: line-through;
+    text-decoration-color: red;
     font-family: fantasy;
     font-size: 24px;
 }
@@ -49,17 +56,3 @@
     height: 20px;
     vertical-align: middle;
 }
-
-
-h1{
-    font-size:48px;
-    font-family: fantasy;
-    text-align: center;
-} 
-
-/* body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* justify-content: center; 
-} */
