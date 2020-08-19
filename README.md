@@ -2,6 +2,7 @@
 A simple and futuristic Todo App written entirely in JavaScript, HTML and CSS
 
 Code Located [Here](https://github.com/hcuellar-coder/TodoApp)
+
 Run Code [Here](https://codepen.io/hcuellar-coder/pen/xxVEZWz)
 
 ![Todo App](./images/todoApp.PNG)
