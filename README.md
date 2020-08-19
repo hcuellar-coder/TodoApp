@@ -1,4 +1,4 @@
-#Futuristic Todo App
+# Futuristic Todo App
 A simple and futuristic Todo App written entirely in JavaScript, HTML and CSS
 
 Code Located [Here](https://github.com/hcuellar-coder/TodoApp)
