@@ -30,7 +30,6 @@ function addTodoProcess() {
 function addTodo(checked, inputTodoValue, todoID, checkboxID, deleteID) {
 
     let newTodoItem = document.createElement('div');
-    let todoTextNode = document.createTextNode(inputTodoValue);
     newTodoItem.id = todoID;
     if (!checked)
         newTodoItem.className = 'todo';
@@ -43,6 +42,9 @@ function addTodo(checked, inputTodoValue, todoID, checkboxID, deleteID) {
     newTodoCheckbox.id = checkboxID;
     newTodoCheckbox.checked = checked;
 
+    let newTodoLabel = document.createElement('label');
+    newTodoLabel.innerHTML = inputTodoValue;
+
     let newTodoDelete = document.createElement('input');
     newTodoDelete.type = 'Button';
     newTodoDelete.className = 'deleteButton';
@@ -50,7 +52,7 @@ function addTodo(checked, inputTodoValue, todoID, checkboxID, deleteID) {
     newTodoDelete.id = deleteID;
 
     newTodoItem.appendChild(newTodoCheckbox);
-    newTodoItem.appendChild(todoTextNode);
+    newTodoItem.appendChild(newTodoLabel);
     newTodoItem.appendChild(newTodoDelete);
 
     let todoItemList = document.getElementById('todoList');
@@ -88,13 +90,14 @@ function deleteTodo(e) {
 }
 
 function completeTodo(e) {
+    console.log(document.getElementById(e.target.id).nextElementSibling);
     let checkboxIndex = todoListStorage.indexOf(todoListStorage.find(({ checkboxID }) => checkboxID == e.target.id));
     if (e.target.checked) {
-        document.getElementById(e.target.id).parentNode.className = 'todoStrike';
+        document.getElementById(e.target.id).nextElementSibling.className = 'todoStrike';
         todoListStorage[checkboxIndex].checked = true;
 
     } else {
-        document.getElementById(e.target.id).parentNode.className = 'todo';
+        document.getElementById(e.target.id).nextElementSibling.className = 'todo';
         todoListStorage[checkboxIndex].checked = false;
     }
     window.localStorage.clear();

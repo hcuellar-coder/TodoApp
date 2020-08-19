@@ -4,38 +4,28 @@ h1{
     text-align: center;
 } 
 
-#addButton{
-    background-color: white;
-    border: 0;
-    font-size: 24px;
-    font-family: fantasy;
-    vertical-align: middle;
+::placeholder{
+    color: red;
 }
 
-#todoInput{
-    font-family: fantasy;
-    font-size: 24px;
-    vertical-align: middle;
-}
-
-#inputTodo{
+.container{
     display: flex;
-    justify-content: center;
-}
-
-#todoList{
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .todo{
+    display: flex;
+    justify-content: space-between;
     font-family: fantasy;
     font-size: 24px;
 }
 
 .todoStrike{
+    display: flex;
+    justify-content: space-between;
     text-decoration: line-through;
     text-decoration-color: red;
     font-family: fantasy;
@@ -44,7 +34,7 @@ h1{
 
 .deleteButton{
     margin-left: 10px;
-    background-color: white;
+    background-color: transparent;
     border: 0;
     font-size: 24px;
     font-weight: bold;
@@ -52,7 +42,40 @@ h1{
 
 .checkBox{
     margin-right: 10px;
-    width: 20px;
-    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
     vertical-align: middle;
+}
+
+#addButton{
+    background-color: transparent;
+    border: 0;
+    font-size: 24px;
+    font-family: fantasy;
+    vertical-align: middle;
+    color: rgb(25, 118, 252);
+}
+
+#todoInput{
+    font-family: fantasy;
+    font-size: 24px;
+    width: 100%;
+    vertical-align: middle;
+    background-color: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-color: black;
+    border-bottom-width: 1px;
+}
+
+#todoInput:focus{
+    outline: none;
+}
+#todoForm{
+    display: flex;
+}
+
+#todoList{
+    padding: 2px;
 }
