@@ -90,7 +90,6 @@ function deleteTodo(e) {
 }
 
 function completeTodo(e) {
-    console.log(document.getElementById(e.target.id).nextElementSibling);
     let checkboxIndex = todoListStorage.indexOf(todoListStorage.find(({ checkboxID }) => checkboxID == e.target.id));
     if (e.target.checked) {
         document.getElementById(e.target.id).nextElementSibling.className = 'todoStrike';
