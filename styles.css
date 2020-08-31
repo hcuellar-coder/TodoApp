@@ -1,14 +1,14 @@
-h1{
+h1 {
     font-size:48px;
     font-family: fantasy;
     text-align: center;
 } 
 
-::placeholder{
+::placeholder {
     color: red;
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
     max-width: 500px;
@@ -16,14 +16,14 @@ h1{
     margin-right: auto;
 }
 
-.todo{
+li {
     display: flex;
     justify-content: space-between;
     font-family: fantasy;
     font-size: 24px;
 }
 
-.todoStrike{
+.todoStrike {
     display: flex;
     justify-content: space-between;
     text-decoration: line-through;
@@ -32,7 +32,7 @@ h1{
     font-size: 24px;
 }
 
-.deleteButton{
+.delete-button {
     margin-left: 10px;
     background-color: transparent;
     border: 0;
@@ -40,14 +40,14 @@ h1{
     font-weight: bold;
 }
 
-.checkBox{
+.check-box {
     margin-right: 10px;
     min-width: 20px;
     min-height: 20px;
     vertical-align: middle;
 }
 
-#addButton{
+#add-button {
     background-color: transparent;
     border: 0;
     font-size: 24px;
@@ -56,7 +56,7 @@ h1{
     color: rgb(25, 118, 252);
 }
 
-#todoInput{
+#todo-input {
     font-family: fantasy;
     font-size: 24px;
     width: 100%;
@@ -69,13 +69,13 @@ h1{
     border-bottom-width: 1px;
 }
 
-#todoInput:focus{
+#todo-input:focus {
     outline: none;
 }
-#todoForm{
+#todo-form {
     display: flex;
 }
 
-#todoList{
+#todo-list {
     padding: 2px;
 }
